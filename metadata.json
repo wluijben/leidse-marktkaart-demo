@@ -1,0 +1,6 @@
+{
+  "name": "Leiden Market Interactive Map",
+  "description": "Interactive overlay map for the Leiden market with responsive coordinate-mapped markers, stall search, and detailed info panels.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

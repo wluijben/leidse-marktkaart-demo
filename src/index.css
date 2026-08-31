@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+/* Leaflet DivIcon Custom Reset */
+.leaflet-div-icon {
+  background: transparent !important;
+  border: none !important;
+  overflow: visible !important;
+}
+
+.custom-anchor-leaflet-pin,
+.custom-stall-marker-icon {
+  background: transparent !important;
+  border: none !important;
+  overflow: visible !important;
+}
+
+.leaflet-container {
+  font-family: inherit;
+  outline: none;
+}
