@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { MarkerItem, AnchorItem } from '../types';
-import { Focus, Eye, EyeOff, Maximize2 } from 'lucide-react';
+import { Focus, Eye, EyeOff, Maximize2, Satellite, Map as MapIcon, Layers } from 'lucide-react';
 
 interface OpenStreetMapViewProps {
   markers: MarkerItem[];
@@ -51,24 +51,16 @@ export const DEFAULT_ANCHORS: AnchorItem[] = [
   }
 ];
 
-// Delineated Leiden Market Perimeter:
-// Covers Koornbrug -> Nieuwe Rijn -> Sint Sebastiaansbrug -> Karnemelksbrug -> Gangetje -> Botermarkt
-export const MARKET_FOCUS_POLYGON: [number, number][] = [
-  [52.15830, 4.49140], // NW: Koornbrug North bank approach
-  [52.15822, 4.49240], // N: Nieuwe Rijn north quay
-  [52.15788, 4.49385], // NE: Approaching Sint Sebastiaansbrug
-  [52.15765, 4.49448], // E: Sint Sebastiaansbrug bridgehead
-  [52.15725, 4.49458], // E: Steenschuur corner
-  [52.15685, 4.49442], // SE: Karnemelksbrug east edge
-  [52.15638, 4.49418], // SE: Karnemelksbrug south quay
-  [52.15628, 4.49365], // S: Gangetje south exit
-  [52.15632, 4.49290], // SW: Gangetje / Steenschuur turn
-  [52.15690, 4.49170], // SW: Botermarkt west perimeter
-  [52.15760, 4.49130], // W: Nieuwe Rijn west entrance
-  [52.15810, 4.49125], // W: Koornbrug west landing
+// Spacious Square / Rectangular focus bounding box around Leiden Market & surrounding context
+// Perfectly encloses Koornbrug (N), Nieuwe Rijn (E), Karnemelksbrug/Gangetje (S), Botermarkt (W)
+export const MARKET_FOCUS_SQUARE: [number, number][] = [
+  [52.15875, 4.49020], // NW corner
+  [52.15875, 4.49480], // NE corner
+  [52.15610, 4.49480], // SE corner
+  [52.15610, 4.49020], // SW corner
 ];
 
-// Inverse mask: World outer ring + Market inner hole
+// Inverse mask: World outer ring + Market inner square hole
 const WORLD_MASK_RING: [number, number][] = [
   [-90, -180],
   [-90, 180],
@@ -76,10 +68,10 @@ const WORLD_MASK_RING: [number, number][] = [
   [90, -180],
 ];
 
-// Strict bounds for Leiden Market to prevent scrolling away
+// Broad limits for smooth panning without drifting away
 const LEIDEN_MARKET_MAX_BOUNDS = L.latLngBounds(
-  [52.15580, 4.49000], // South-West limit
-  [52.15890, 4.49580]  // North-East limit
+  [52.15300, 4.48200], // South-West limit
+  [52.16100, 4.50200]  // North-East limit
 );
 
 const LEIDEN_BOUNDS = {
@@ -89,8 +81,39 @@ const LEIDEN_BOUNDS = {
   east: 4.49450,
 };
 
-const DEFAULT_CENTER: [number, number] = [52.15740, 4.49270];
-const DEFAULT_ZOOM = 18.5;
+const DEFAULT_CENTER: [number, number] = [52.15742, 4.49250];
+const DEFAULT_ZOOM = 18.0;
+
+// High-speed, high-zoom, reliable tile layers with NO API KEY and NO watermarks
+type TileMode = 'google-streets' | 'osm' | 'google-hybrid';
+
+const TILE_CONFIGS: Record<TileMode, { name: string; url: string; subdomains?: string[]; attribution: string; maxNativeZoom: number; maxZoom: number }> = {
+  'google-streets': {
+    name: 'Google Straten',
+    // Clean Google Maps street tiles: clear canals, clean roads, high zoom clarity, NO API KEY REQUIRED
+    url: 'https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
+    subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+    attribution: '&copy; Google Maps',
+    maxNativeZoom: 20,
+    maxZoom: 22,
+  },
+  'osm': {
+    name: 'OpenStreetMap',
+    url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+    attribution: '&copy; OpenStreetMap contributors',
+    maxNativeZoom: 19,
+    maxZoom: 22,
+  },
+  'google-hybrid': {
+    name: 'Satelliet',
+    // Google Satellite + Street labels hybrid: crisp photographic imagery at high zoom
+    url: 'https://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}',
+    subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+    attribution: '&copy; Google Maps',
+    maxNativeZoom: 20,
+    maxZoom: 22,
+  }
+};
 
 export const OpenStreetMapView: React.FC<OpenStreetMapViewProps> = ({
   markers,
@@ -111,21 +134,24 @@ export const OpenStreetMapView: React.FC<OpenStreetMapViewProps> = ({
   const anchorLayersRef = useRef<Map<string, L.Marker>>(new Map());
   const [mapReady, setMapReady] = useState(false);
 
-  // Mask display options
-  const [maskOpacity, setMaskOpacity] = useState<number>(0.96); // 0.96 = solid dark outside
+  // Map view mode: Google street tiles are crisp, reliable, and free of noisy watermarks
+  const [mapMode, setMapMode] = useState<TileMode>('google-streets');
+
+  // Solid black mask outside the square (1.0 = solid pitch black)
+  const [maskOpacity, setMaskOpacity] = useState<number>(1.0);
   const [showBorderGlow, setShowBorderGlow] = useState<boolean>(true);
 
-  // Initialize Leaflet Map with constrained view
+  // Initialize Leaflet Map with spacious square view
   useEffect(() => {
     if (!mapContainerRef.current || mapInstanceRef.current) return;
 
     const map = L.map(mapContainerRef.current, {
       center: DEFAULT_CENTER,
       zoom: DEFAULT_ZOOM,
-      minZoom: 17,
-      maxZoom: 21,
+      minZoom: 16,
+      maxZoom: 22,
       maxBounds: LEIDEN_MARKET_MAX_BOUNDS,
-      maxBoundsViscosity: 0.9,
+      maxBoundsViscosity: 0.8,
       zoomControl: false,
       zoomSnap: 0.25,
       zoomDelta: 0.5,
@@ -137,19 +163,21 @@ export const OpenStreetMapView: React.FC<OpenStreetMapViewProps> = ({
       keyboard: true,
     });
 
-    const tileLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors',
-      maxNativeZoom: 19,
-      maxZoom: 21,
+    const initialConfig = TILE_CONFIGS[mapMode];
+    const tileLayer = L.tileLayer(initialConfig.url, {
+      attribution: initialConfig.attribution,
+      subdomains: initialConfig.subdomains || ['mt0', 'mt1', 'mt2', 'mt3'],
+      maxNativeZoom: initialConfig.maxNativeZoom,
+      maxZoom: initialConfig.maxZoom,
     }).addTo(map);
 
     tileLayerRef.current = tileLayer;
 
-    // Fit view comfortably around the market polygon with clean margin
-    const marketBounds = L.latLngBounds(MARKET_FOCUS_POLYGON);
+    // Fit view comfortably around the square market area with clean padding
+    const marketBounds = L.latLngBounds(MARKET_FOCUS_SQUARE);
     map.fitBounds(marketBounds, {
-      padding: [45, 45],
-      maxZoom: 19,
+      padding: [25, 25],
+      maxZoom: 18.5,
       animate: false,
     });
 
@@ -167,7 +195,29 @@ export const OpenStreetMapView: React.FC<OpenStreetMapViewProps> = ({
     };
   }, []);
 
-  // 1. Draw Inverse Polygon Mask (Solid Dark Outside Leiden Market Area)
+  // Handle layer switching
+  useEffect(() => {
+    const map = mapInstanceRef.current;
+    if (!map || !mapReady) return;
+
+    if (tileLayerRef.current) {
+      map.removeLayer(tileLayerRef.current);
+    }
+
+    const config = TILE_CONFIGS[mapMode];
+    const newTileLayer = L.tileLayer(config.url, {
+      attribution: config.attribution,
+      subdomains: config.subdomains || ['mt0', 'mt1', 'mt2', 'mt3'],
+      maxNativeZoom: config.maxNativeZoom,
+      maxZoom: config.maxZoom,
+    }).addTo(map);
+
+    // Ensure tile layer is behind the mask polygon
+    newTileLayer.bringToBack();
+    tileLayerRef.current = newTileLayer;
+  }, [mapMode, mapReady]);
+
+  // 1. Draw Solid Black Inverse Mask Outside the Square Focus Box
   useEffect(() => {
     const map = mapInstanceRef.current;
     if (!map || !mapReady) return;
@@ -183,10 +233,10 @@ export const OpenStreetMapView: React.FC<OpenStreetMapViewProps> = ({
     }
 
     if (maskOpacity > 0) {
-      // Leaflet hole polygon: [outerRing, innerRing]
-      const maskPolygon = L.polygon([WORLD_MASK_RING, MARKET_FOCUS_POLYGON], {
-        color: '#020617',
-        fillColor: '#020617',
+      // Leaflet hole polygon: [outerRing, innerSquare]
+      const maskPolygon = L.polygon([WORLD_MASK_RING, MARKET_FOCUS_SQUARE], {
+        color: '#000000',
+        fillColor: '#000000',
         fillOpacity: maskOpacity,
         weight: 0,
         interactive: false,
@@ -197,13 +247,13 @@ export const OpenStreetMapView: React.FC<OpenStreetMapViewProps> = ({
     }
 
     if (showBorderGlow) {
-      // Amber dashed boundary line highlighting the Leiden market zone
-      const borderPolygon = L.polygon(MARKET_FOCUS_POLYGON, {
+      // Clean golden / amber square boundary frame
+      const borderPolygon = L.polygon(MARKET_FOCUS_SQUARE, {
         color: '#f59e0b',
         weight: 2,
-        opacity: 0.85,
+        opacity: 0.9,
         fill: false,
-        dashArray: '5, 5',
+        dashArray: '6, 6',
         interactive: false,
         pane: 'overlayPane',
       }).addTo(map);
@@ -234,13 +284,13 @@ export const OpenStreetMapView: React.FC<OpenStreetMapViewProps> = ({
       const customHtml = `
         <div class="anchor-pin-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; transform: translate(-50%, -100%); cursor: grab; pointer-events: auto; user-select: none;">
           <!-- Clean Text Anchor Badge -->
-          <div style="background: rgba(15, 23, 42, 0.95); border: 2px solid ${anchor.border}; border-radius: 6px; padding: 3px 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.8), 0 0 8px ${anchor.color}; display: flex; align-items: center; justify-content: center; text-align: center; white-space: nowrap;">
+          <div style="background: rgba(15, 23, 42, 0.95); border: 2px solid ${anchor.border}; border-radius: 6px; padding: 3px 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.6), 0 0 8px ${anchor.color}; display: flex; align-items: center; justify-content: center; text-align: center; white-space: nowrap;">
             <span style="font-weight: 800; font-size: 11px; color: #ffffff; letter-spacing: 0.03em; text-transform: uppercase;">${anchor.name}</span>
           </div>
 
           <!-- Anchor Teardrop Pin Indicator -->
           <div style="position: relative; width: 24px; height: 24px; margin-top: -1px; display: flex; align-items: center; justify-content: center;">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="${anchor.color}" stroke="#ffffff" stroke-width="1.5" style="filter: drop-shadow(0 2px 5px rgba(0,0,0,0.8));">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="${anchor.color}" stroke="#ffffff" stroke-width="1.5" style="filter: drop-shadow(0 2px 5px rgba(0,0,0,0.6));">
               <path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 8 16 8 16s8-10.75 8-16c0-4.42-3.58-8-8-8zm0 11c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z" />
             </svg>
             <div style="position: absolute; top: 6px; width: 6px; height: 6px; background: #ffffff; border-radius: 9999px;"></div>
@@ -323,12 +373,12 @@ export const OpenStreetMapView: React.FC<OpenStreetMapViewProps> = ({
       const isStall = marker.type === 'stall';
       const isBridge = marker.type === 'bridge';
 
-      // Clean styling
-      let bgStyle = 'background: #f59e0b; color: #020617; border: 1.5px solid #fef08a;';
+      // Clean styling with high contrast
+      let bgStyle = 'background: #f59e0b; color: #020617; border: 1.5px solid #ffffff;';
       if (!isStall) {
         bgStyle = isBridge 
-          ? 'background: #7c3aed; color: #ffffff; border: 1.5px solid #c4b5fd;' 
-          : 'background: #059669; color: #ffffff; border: 1.5px solid #6ee7b7;';
+          ? 'background: #7c3aed; color: #ffffff; border: 1.5px solid #ffffff;' 
+          : 'background: #059669; color: #ffffff; border: 1.5px solid #ffffff;' ;
       }
 
       // Badge size
@@ -338,13 +388,13 @@ export const OpenStreetMapView: React.FC<OpenStreetMapViewProps> = ({
       // Pure text badges - NO coordinates, NO emojis
       const customHtml = isStall ? `
         <div class="stall-marker-layer" style="display: flex; flex-direction: column; align-items: center; justify-content: center; transform: translate(-50%, -50%); cursor: grab; user-select: none;">
-          <div style="width: ${badgeSize}px; height: ${badgeSize}px; border-radius: 9999px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: ${fontPx}; font-family: ui-sans-serif, system-ui, sans-serif; ${bgStyle} box-shadow: 0 2px 6px rgba(0,0,0,0.8), 0 0 6px rgba(245,158,11,0.5); ${isSelected ? 'outline: 2.5px solid #ffffff; transform: scale(1.3); z-index: 9999;' : ''}">
+          <div style="width: ${badgeSize}px; height: ${badgeSize}px; border-radius: 9999px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: ${fontPx}; font-family: ui-sans-serif, system-ui, sans-serif; ${bgStyle} box-shadow: 0 2px 6px rgba(0,0,0,0.5), 0 0 6px rgba(245,158,11,0.5); ${isSelected ? 'outline: 3px solid #0284c7; transform: scale(1.3); z-index: 9999;' : ''}">
             ${marker.text}
           </div>
         </div>
       ` : `
         <div class="landmark-marker-layer" style="display: flex; flex-direction: column; align-items: center; justify-content: center; transform: translate(-50%, -50%); cursor: grab; user-select: none;">
-          <div style="padding: 2.5px 7px; border-radius: 4px; font-weight: 800; font-size: ${fontPx}; font-family: ui-sans-serif, system-ui, sans-serif; text-transform: uppercase; white-space: nowrap; ${bgStyle} box-shadow: 0 2px 6px rgba(0,0,0,0.8); ${isSelected ? 'outline: 2px solid #ffffff; transform: scale(1.2); z-index: 9999;' : ''}">
+          <div style="padding: 2.5px 7px; border-radius: 4px; font-weight: 800; font-size: ${fontPx}; font-family: ui-sans-serif, system-ui, sans-serif; text-transform: uppercase; white-space: nowrap; ${bgStyle} box-shadow: 0 2px 6px rgba(0,0,0,0.5); ${isSelected ? 'outline: 2.5px solid #0284c7; transform: scale(1.2); z-index: 9999;' : ''}">
             ${marker.text}
           </div>
         </div>
@@ -401,47 +451,93 @@ export const OpenStreetMapView: React.FC<OpenStreetMapViewProps> = ({
     });
   }, [markers, selectedMarker, showMarkers, markerSize, mapReady, onMarkerDrag, onSelectMarker]);
 
-  // Center strictly back to the Leidse Markt Corridor
+  // Center strictly back to the Market Square
   const handleResetToMarket = () => {
     const map = mapInstanceRef.current;
     if (!map) return;
-    const bounds = L.latLngBounds(MARKET_FOCUS_POLYGON);
+    const bounds = L.latLngBounds(MARKET_FOCUS_SQUARE);
     map.fitBounds(bounds, {
-      padding: [45, 45],
-      maxZoom: 19,
+      padding: [25, 25],
+      maxZoom: 18.5,
       animate: true,
       duration: 0.6,
     });
   };
 
   return (
-    <div className="relative w-full h-full bg-slate-950 overflow-hidden select-none">
+    <div className="relative w-full h-full bg-black overflow-hidden select-none">
       {/* Leaflet Map */}
       <div 
         ref={mapContainerRef} 
         id="leaflet-osm-container" 
-        className="w-full h-full z-0 cursor-default bg-slate-950"
+        className="w-full h-full z-0 cursor-default bg-black"
       />
 
-      {/* Floating Focus Area Control Strip */}
+      {/* Floating Toolbar with Street view modes, square mask toggle, and reset */}
       <div 
         id="market-focus-toolbar"
-        className="absolute top-3 left-3 z-30 flex items-center gap-1.5 p-1.5 rounded-xl bg-slate-900/90 backdrop-blur-md border border-slate-700 shadow-xl text-xs font-semibold text-slate-200"
+        className="absolute top-3 left-3 z-30 flex flex-wrap items-center gap-1.5 p-1.5 rounded-xl bg-slate-900/95 backdrop-blur-md border border-slate-700 shadow-xl text-xs font-semibold text-slate-200"
       >
         <div className="flex items-center gap-1.5 px-2 py-1 bg-amber-500/10 text-amber-300 rounded-lg border border-amber-500/20 font-bold">
           <Focus className="w-3.5 h-3.5 text-amber-400" />
           <span>Leidse Markt</span>
         </div>
 
-        {/* Mask Opacity Mode buttons */}
+        {/* Map View Mode Selector */}
+        <div className="flex items-center p-0.5 rounded-lg bg-slate-800 border border-slate-700">
+          <button
+            id="tile-google-streets-btn"
+            onClick={() => setMapMode('google-streets')}
+            className={`flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-bold transition-all cursor-pointer ${
+              mapMode === 'google-streets'
+                ? 'bg-amber-400 text-slate-950 shadow-sm'
+                : 'text-slate-300 hover:text-white'
+            }`}
+            title="Google Maps stratenkaart (heldere water- en straatlijnen)"
+          >
+            <MapIcon className="w-3 h-3" />
+            <span>Straten</span>
+          </button>
+
+          <button
+            id="tile-osm-btn"
+            onClick={() => setMapMode('osm')}
+            className={`flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-bold transition-all cursor-pointer ${
+              mapMode === 'osm'
+                ? 'bg-amber-400 text-slate-950 shadow-sm'
+                : 'text-slate-300 hover:text-white'
+            }`}
+            title="OpenStreetMap"
+          >
+            <Layers className="w-3 h-3" />
+            <span>OSM</span>
+          </button>
+
+          <button
+            id="tile-hybrid-btn"
+            onClick={() => setMapMode('google-hybrid')}
+            className={`flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-bold transition-all cursor-pointer ${
+              mapMode === 'google-hybrid'
+                ? 'bg-amber-400 text-slate-950 shadow-sm'
+                : 'text-slate-300 hover:text-white'
+            }`}
+            title="Satellietbeeld"
+          >
+            <Satellite className="w-3 h-3" />
+            <span>Satelliet</span>
+          </button>
+        </div>
+
+        {/* Square Mask Opacity Toggle */}
         <button
-          onClick={() => setMaskOpacity((prev) => (prev > 0.5 ? 0 : 0.96))}
+          id="square-mask-toggle-btn"
+          onClick={() => setMaskOpacity((prev) => (prev > 0.5 ? 0 : 1.0))}
           className={`flex items-center gap-1 px-2 py-1 rounded-lg transition-all cursor-pointer ${
             maskOpacity > 0 
               ? 'bg-slate-800 text-amber-300 border border-slate-700' 
               : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
           }`}
-          title={maskOpacity > 0 ? "Buitenregio zwart gemaskeerd (klik om te tonen)" : "Buitenregio tonen (klik om te maskeren)"}
+          title={maskOpacity > 0 ? "Buiten het vierkant is zwart gemaskeerd (klik om uit te schakelen)" : "Buitenregio tonen (klik om zwart te maskeren)"}
         >
           {maskOpacity > 0 ? <EyeOff className="w-3.5 h-3.5 text-amber-400" /> : <Eye className="w-3.5 h-3.5" />}
           <span>{maskOpacity > 0 ? 'Zwart masker: Aan' : 'Zwart masker: Uit'}</span>
