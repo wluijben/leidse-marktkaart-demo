@@ -20,13 +20,19 @@ export interface AnchorItem {
   lng: number;
   color: string;
   border: string;
-  icon: string;
+  icon?: string;
 }
 
 export interface MarketDataset {
   image_file: string;
   width: number;
   height: number;
+  anchors?: Array<{
+    id: string;
+    name: string;
+    lat: number;
+    lng: number;
+  }>;
   markers: Array<{
     text: string;
     x_percent: number;

@@ -8,8 +8,8 @@ import {
   Code2
 } from 'lucide-react';
 
-const LOCAL_STORAGE_KEY = 'leiden_market_dataset_calibrated_final';
-const ANCHORS_STORAGE_KEY = 'leiden_market_anchors_calibrated_v1';
+const LOCAL_STORAGE_KEY = 'leiden_market_dataset_v3_default';
+const ANCHORS_STORAGE_KEY = 'leiden_market_anchors_v3_default';
 
 export default function App() {
   const [dataset, setDataset] = useState<MarketDataset>(() => {
@@ -195,9 +195,9 @@ export default function App() {
           </div>
           <div>
             <h1 className="text-sm font-bold text-white flex items-center gap-2">
-              <span>Leiden Market Map</span>
+              <span>Leidse Marktkaart Demo</span>
               <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                {allMarkers.length} stalls & 4 anchors
+                {allMarkers.length} kramen & 4 ankers
               </span>
             </h1>
             <p className="text-xs text-slate-400 hidden sm:block">

@@ -1,30 +1,56 @@
 import { MarkerItem, MarketDataset } from '../types';
 
 export const rawMarketData: MarketDataset = {
-  image_file: "extracted_map.png",
-  width: 1614,
-  height: 2481,
-  markers: [
+  "anchors": [
+    {
+      "id": "anchor-koornbrug",
+      "name": "Koornbrug",
+      "lat": 52.157994,
+      "lng": 4.491849
+    },
+    {
+      "id": "anchor-nieuwe-rijn",
+      "name": "Nieuwe Rijn",
+      "lat": 52.157587,
+      "lng": 4.493298
+    },
+    {
+      "id": "anchor-botermarkt",
+      "name": "Botermarkt",
+      "lat": 52.157176,
+      "lng": 4.491716
+    },
+    {
+      "id": "anchor-karnemelksbrug",
+      "name": "Karnemelksbrug",
+      "lat": 52.156957,
+      "lng": 4.493961
+    }
+  ],
+  "image_file": "extracted_map.png",
+  "width": 1614,
+  "height": 2481,
+  "markers": [
     {
       "text": "KOORNBRUG",
-      "x_percent": 20.96,
-      "y_percent": 17.313,
-      "lat": 52.158154,
-      "lng": 4.491734
+      "x_percent": 24.27,
+      "y_percent": 16.878,
+      "lat": 52.158162,
+      "lng": 4.491849
     },
     {
       "text": "34",
-      "x_percent": 45.249,
-      "y_percent": 37.093,
-      "lat": 52.157758,
-      "lng": 4.492584
+      "x_percent": 45.78,
+      "y_percent": 38.608,
+      "lat": 52.157728,
+      "lng": 4.492602
     },
     {
       "text": "35",
-      "x_percent": 48.067,
-      "y_percent": 42.911,
-      "lat": 52.157642,
-      "lng": 4.492682
+      "x_percent": 48.514,
+      "y_percent": 43.304,
+      "lat": 52.157634,
+      "lng": 4.492698
     },
     {
       "text": "39",
@@ -42,17 +68,17 @@ export const rawMarketData: MarketDataset = {
     },
     {
       "text": "41",
-      "x_percent": 38.305,
-      "y_percent": 27.985,
-      "lat": 52.15794,
-      "lng": 4.492341
+      "x_percent": 39.4,
+      "y_percent": 29.802,
+      "lat": 52.157904,
+      "lng": 4.492379
     },
     {
       "text": "42",
-      "x_percent": 35.546,
-      "y_percent": 25.023,
-      "lat": 52.158,
-      "lng": 4.492244
+      "x_percent": 36.302,
+      "y_percent": 25.888,
+      "lat": 52.157982,
+      "lng": 4.492271
     },
     {
       "text": "43",
@@ -70,66 +96,66 @@ export const rawMarketData: MarketDataset = {
     },
     {
       "text": "NIEUWE",
-      "x_percent": 62.829,
-      "y_percent": 47.895,
-      "lat": 52.157542,
-      "lng": 4.493199
+      "x_percent": 56.714,
+      "y_percent": 42.128,
+      "lat": 52.157657,
+      "lng": 4.492985
     },
     {
       "text": "RIJN",
-      "x_percent": 69.572,
-      "y_percent": 48.389,
-      "lat": 52.157532,
-      "lng": 4.493435
+      "x_percent": 61.634,
+      "y_percent": 42.128,
+      "lat": 52.157657,
+      "lng": 4.493157
     },
     {
       "text": "BOTERMARKT",
-      "x_percent": 28.496,
-      "y_percent": 61.882,
-      "lat": 52.157262,
-      "lng": 4.491997
+      "x_percent": 31.746,
+      "y_percent": 64.632,
+      "lat": 52.157207,
+      "lng": 4.492111
     },
     {
       "text": "45",
-      "x_percent": 21.406,
-      "y_percent": 34.766,
-      "lat": 52.157805,
-      "lng": 4.491749
+      "x_percent": 24.273,
+      "y_percent": 33.91,
+      "lat": 52.157822,
+      "lng": 4.49185
     },
     {
       "text": "46",
-      "x_percent": 25.525,
-      "y_percent": 39.42,
-      "lat": 52.157712,
-      "lng": 4.491893
+      "x_percent": 27.918,
+      "y_percent": 37.236,
+      "lat": 52.157755,
+      "lng": 4.491977
     },
     {
       "text": "47",
-      "x_percent": 33.847,
-      "y_percent": 49.678,
-      "lat": 52.157506,
-      "lng": 4.492185
+      "x_percent": 34.297,
+      "y_percent": 47.216,
+      "lat": 52.157556,
+      "lng": 4.4922
     },
     {
       "text": "48",
-      "x_percent": 35.279,
-      "y_percent": 54.314,
-      "lat": 52.157414,
-      "lng": 4.492235
+      "x_percent": 37.031,
+      "y_percent": 51.521,
+      "lat": 52.15747,
+      "lng": 4.492296
     },
     {
       "text": "49",
-      "x_percent": 31.159,
-      "y_percent": 45.704,
-      "lat": 52.157586,
-      "lng": 4.492091
+      "x_percent": 30.651,
+      "y_percent": 41.736,
+      "lat": 52.157665,
+      "lng": 4.492073
     },
     {
       "text": "50",
-      "x_percent": 39.397,
-      "y_percent": 57.805,
-      "lat": 52.157344,
-      "lng": 4.492379
+      "x_percent": 40.13,
+      "y_percent": 55.435,
+      "lat": 52.157391,
+      "lng": 4.492405
     },
     {
       "text": "51",
@@ -140,24 +166,24 @@ export const rawMarketData: MarketDataset = {
     },
     {
       "text": "52",
-      "x_percent": 45.032,
-      "y_percent": 65.484,
-      "lat": 52.15719,
-      "lng": 4.492576
+      "x_percent": 46.327,
+      "y_percent": 65.416,
+      "lat": 52.157192,
+      "lng": 4.492621
     },
     {
       "text": "53",
-      "x_percent": 48.934,
-      "y_percent": 68.509,
-      "lat": 52.15713,
-      "lng": 4.492713
+      "x_percent": 49.972,
+      "y_percent": 69.918,
+      "lat": 52.157102,
+      "lng": 4.492749
     },
     {
       "text": "GANGETJE",
-      "x_percent": 62.532,
-      "y_percent": 92.818,
-      "lat": 52.156644,
-      "lng": 4.493189
+      "x_percent": 59.448,
+      "y_percent": 93.009,
+      "lat": 52.15664,
+      "lng": 4.493081
     },
     {
       "text": "54",
@@ -182,143 +208,143 @@ export const rawMarketData: MarketDataset = {
     },
     {
       "text": "KARNEMELKSBRUG",
-      "x_percent": 89.19,
-      "y_percent": 94.958,
-      "lat": 52.156601,
-      "lng": 4.494122
+      "x_percent": 83.146,
+      "y_percent": 96.724,
+      "lat": 52.156566,
+      "lng": 4.49391
     },
     {
       "text": "57",
-      "x_percent": 51.536,
-      "y_percent": 72.931,
-      "lat": 52.157041,
-      "lng": 4.492804
+      "x_percent": 53.253,
+      "y_percent": 73.636,
+      "lat": 52.157027,
+      "lng": 4.492864
     },
     {
       "text": "58",
-      "x_percent": 54.786,
-      "y_percent": 77.12,
-      "lat": 52.156958,
-      "lng": 4.492918
+      "x_percent": 56.899,
+      "y_percent": 78.332,
+      "lat": 52.156933,
+      "lng": 4.492991
     },
     {
       "text": "59",
-      "x_percent": 57.605,
-      "y_percent": 81.309,
-      "lat": 52.156874,
-      "lng": 4.493016
+      "x_percent": 61.091,
+      "y_percent": 83.812,
+      "lat": 52.156824,
+      "lng": 4.493138
     },
     {
       "text": "60",
-      "x_percent": 60.206,
-      "y_percent": 83.17,
-      "lat": 52.156837,
-      "lng": 4.493107
+      "x_percent": 64.372,
+      "y_percent": 87.335,
+      "lat": 52.156753,
+      "lng": 4.493253
     },
     {
       "text": "61",
-      "x_percent": 73.863,
-      "y_percent": 90.85,
-      "lat": 52.156683,
-      "lng": 4.493585
+      "x_percent": 74.943,
+      "y_percent": 91.247,
+      "lat": 52.156675,
+      "lng": 4.493623
     },
     {
       "text": "62",
-      "x_percent": 76.03,
-      "y_percent": 88.756,
-      "lat": 52.156725,
-      "lng": 4.493661
+      "x_percent": 76.766,
+      "y_percent": 88.312,
+      "lat": 52.156734,
+      "lng": 4.493687
     },
     {
       "text": "63",
-      "x_percent": 79.716,
-      "y_percent": 85.032,
-      "lat": 52.156799,
-      "lng": 4.49379
+      "x_percent": 79.135,
+      "y_percent": 85.964,
+      "lat": 52.156781,
+      "lng": 4.49377
     },
     {
       "text": "64",
-      "x_percent": 79.282,
-      "y_percent": 81.541,
-      "lat": 52.156869,
-      "lng": 4.493775
+      "x_percent": 81.323,
+      "y_percent": 83.225,
+      "lat": 52.156836,
+      "lng": 4.493846
     },
     {
       "text": "65",
-      "x_percent": 76.68,
-      "y_percent": 79.912,
-      "lat": 52.156902,
-      "lng": 4.493684
+      "x_percent": 79.5,
+      "y_percent": 79.114,
+      "lat": 52.156918,
+      "lng": 4.493783
     },
     {
       "text": "66",
-      "x_percent": 73.862,
-      "y_percent": 76.887,
-      "lat": 52.156962,
-      "lng": 4.493585
+      "x_percent": 77.131,
+      "y_percent": 76.57,
+      "lat": 52.156969,
+      "lng": 4.4937
     },
     {
       "text": "67",
-      "x_percent": 72.127,
-      "y_percent": 75.491,
-      "lat": 52.15699,
-      "lng": 4.493524
+      "x_percent": 73.85,
+      "y_percent": 73.438,
+      "lat": 52.157031,
+      "lng": 4.493585
     },
     {
       "text": "68",
-      "x_percent": 69.526,
-      "y_percent": 72.233,
-      "lat": 52.157055,
-      "lng": 4.493433
+      "x_percent": 70.751,
+      "y_percent": 70.503,
+      "lat": 52.15709,
+      "lng": 4.493476
     },
     {
       "text": "69",
-      "x_percent": 68.441,
-      "y_percent": 68.742,
-      "lat": 52.157125,
-      "lng": 4.493395
+      "x_percent": 69.11,
+      "y_percent": 67.177,
+      "lat": 52.157156,
+      "lng": 4.493419
     },
     {
       "text": "70",
-      "x_percent": 66.924,
-      "y_percent": 64.321,
-      "lat": 52.157214,
-      "lng": 4.493342
+      "x_percent": 65.829,
+      "y_percent": 64.634,
+      "lat": 52.157207,
+      "lng": 4.493304
     },
     {
       "text": "71",
-      "x_percent": 64.541,
-      "y_percent": 62.459,
-      "lat": 52.157251,
-      "lng": 4.493259
+      "x_percent": 63.459,
+      "y_percent": 62.677,
+      "lat": 52.157246,
+      "lng": 4.493221
     },
     {
       "text": "72",
-      "x_percent": 63.024,
-      "y_percent": 59.434,
-      "lat": 52.157311,
-      "lng": 4.493206
+      "x_percent": 60.725,
+      "y_percent": 59.546,
+      "lat": 52.157309,
+      "lng": 4.493125
     },
     {
       "text": "73",
-      "x_percent": 59.773,
-      "y_percent": 57.805,
-      "lat": 52.157344,
-      "lng": 4.493092
+      "x_percent": 58.174,
+      "y_percent": 55.827,
+      "lat": 52.157383,
+      "lng": 4.493036
     },
     {
       "text": "74",
-      "x_percent": 57.171,
-      "y_percent": 52.918,
-      "lat": 52.157442,
-      "lng": 4.493001
+      "x_percent": 55.987,
+      "y_percent": 52.305,
+      "lat": 52.157454,
+      "lng": 4.49296
     },
     {
       "text": "75",
-      "x_percent": 52.619,
-      "y_percent": 50.125,
-      "lat": 52.157497,
-      "lng": 4.492842
+      "x_percent": 51.43,
+      "y_percent": 47.803,
+      "lat": 52.157544,
+      "lng": 4.4928
     }
   ]
 };
@@ -327,88 +353,88 @@ export const rawMarketData: MarketDataset = {
 const LANDMARK_METADATA: Record<string, { type: 'landmark' | 'bridge' | 'street'; zone: string; category: string; description: string; typicalProducts?: string[] }> = {
   "BOTERMARKT": {
     type: 'landmark',
-    zone: 'West Quay / Central Plaza',
-    category: 'Historic Plaza',
-    description: 'The historic Butter Market plaza situated along the western quay of the Nieuwe Rijn. One of Leiden’s primary market hubs since the 17th century, featuring weekly cheese, food, and flower vendors.',
-    typicalProducts: ['Artisanal Cheeses', 'Fresh Flowers', 'Street Food', 'Local Delicacies']
+    zone: 'Westkade / Centraal Plein',
+    category: 'Historisch Plein',
+    description: 'Het historische Botermarktplein aan de westkade van de Nieuwe Rijn. Een van de belangrijkste markthubs van Leiden met wekelijkse kaas-, vis- en bloemenkramen.',
+    typicalProducts: ['Boerenkaas', 'Verse Bloemen', 'Delicatessen', 'Noten & Tapas']
   },
   "KOORNBRUG": {
     type: 'bridge',
-    zone: 'North End',
-    category: 'Historic Covered Bridge',
-    description: 'Built in 1642 and roofed in 1825 to keep grain dry during trading. This iconic national monument connects the Botermarkt and Nieuwe Rijn quays.',
-    typicalProducts: ['Grain Trading Heritage', 'Scenic Canal Overlook', 'Meeting Point']
+    zone: 'Noordzijde',
+    category: 'Historische Overdekte Brug',
+    description: 'Gebouwd in 1642 en van een classicistische overkapping voorzien in 1825. Rijksmonument dat de Botermarkt en Nieuwe Rijn kades met elkaar verbindt.',
+    typicalProducts: ['Historisch Rijksmonument', 'Uitzicht over de grachten', 'Knooppunt']
   },
   "KARNEMELKSBRUG": {
     type: 'bridge',
-    zone: 'South End',
-    category: 'Canal Bridge',
-    description: 'Historical southern bridge across the Nieuwe Rijn connecting the Botermarkt and Gangetje market avenues.',
-    typicalProducts: ['Connecting Bridge', 'Pedestrian Walkway']
+    zone: 'Zuidzijde',
+    category: 'Grachtenbrug',
+    description: 'Historische brug aan de zuidkant van de warenmarkt die de verbinding vormt naar het Gangetje en Steenschuur.',
+    typicalProducts: ['Verbindingsbrug', 'Voetgangerspassage']
   },
   "GANGETJE": {
     type: 'street',
-    zone: 'South-West Alley',
-    category: 'Market Street',
-    description: 'A bustling market avenue leading into the Botermarkt and Nieuwe Rijn, lined with vendor trailers, textiles, and specialty snacks.',
-    typicalProducts: ['Textiles & Fabrics', 'Specialty Snacks', 'Electronics Accessories']
+    zone: 'Zuidwestelijke Marktstraat',
+    category: 'Marktstraat',
+    description: 'Levendige marktstraat die uitmondt op de Botermarkt en Nieuwe Rijn, met kramen voor kleding, textiel en snacks.',
+    typicalProducts: ['Kleding & Textiel', 'Snacks', 'Woonaccessoires']
   },
   "NIEUWE": {
     type: 'landmark',
-    zone: 'East Quay (Nieuwe Rijn)',
-    category: 'Canal Quay (North)',
-    description: 'The eastern canal quay "Nieuwe Rijn", hosting seafood, stroopwafel, bakery, and farm produce stalls directly along the historic water canal.',
-    typicalProducts: ['Dutch Fish & Kibbeling', 'Hot Stroopwafels', 'Organic Bakery', 'Fresh Fruit']
+    zone: 'Oostkade (Nieuwe Rijn)',
+    category: 'Grachtenkade (Noord)',
+    description: 'De oostelijke grachtenkade van de Nieuwe Rijn met viskramen, stroopwafels, ambachtelijke bakkerijen en streekproducten.',
+    typicalProducts: ['Verse Kibbeling & Haring', 'Warme Stroopwafels', 'Boerenbrood']
   },
   "RIJN": {
     type: 'landmark',
-    zone: 'East Quay (Nieuwe Rijn)',
-    category: 'Canal Quay (South)',
-    description: 'Part of the Nieuwe Rijn market embankment where market barges historically docked to unload fresh harvest from the Dutch polders.',
-    typicalProducts: ['Produce Barges', 'Canal Terrace Seating', 'Local Produce']
+    zone: 'Oostkade (Nieuwe Rijn)',
+    category: 'Grachtenkade (Zuid)',
+    description: 'Historisch kadegebied waar vroeger marktschepen aanmeerden om verse oogst uit de polders te lossen.',
+    typicalProducts: ['Aanmeerkade', 'Terrassen', 'Seizoensproducten']
   }
 };
 
 const STALL_SPECIALTIES: Record<string, { category: string; description: string; products: string[] }> = {
-  "34": { category: "Flowers & Plants", description: "Fresh cut seasonal Dutch tulips, peonies, and potted plants near Koornbrug.", products: ["Tulips", "Hydrangeas", "Houseplants"] },
-  "35": { category: "Florist & Bulbs", description: "Ornamental garden flowers and flower bulbs.", products: ["Flower Bulbs", "Bouquets", "Seasonal Greens"] },
-  "39": { category: "Fish & Seafood", description: "Traditional Dutch raw herring with onions, warm kibbeling, and smoked eel.", products: ["Hollandse Nieuwe", "Kibbeling", "Smoked Mackerel"] },
-  "40": { category: "Fresh Fish & Crustaceans", description: "North Sea cod, salmon, shrimp, and freshly fried fish snacks.", products: ["North Sea Cod", "Shrimp", "Oysters"] },
-  "41": { category: "Farmhouse Cheese", description: "Aged Boerenkaas (farmhouse raw milk Gouda), cumin cheese, and goat cheese.", products: ["Aged Gouda", "Leidse Sleutelkaas", "Herb Cheese"] },
-  "42": { category: "Artisanal Cheese & Butter", description: "Authentic Leidse Kaas with cumin, creamy butter, and European imports.", products: ["Cumin Cheese", "Grass Butter", "Truffle Gouda"] },
-  "43": { category: "Bakery & Sourdough", description: "Crusty artisan loaves, Dutch apple pie, and cinnamon rolls.", products: ["Sourdough Bread", "Appeltaart", "Croissants"] },
-  "44": { category: "Dutch Pastries & Stroopwafels", description: "Warm fresh stroopwafels pressed on the griddle with warm caramel syrup.", products: ["Jumbo Stroopwafels", "Speculoos", "Poffertjes"] },
-  "45": { category: "Organic Vegetables", description: "Locally grown Dutch root vegetables, heirloom tomatoes, and crisp greens.", products: ["Organic Carrots", "Kale (Boerenkool)", "Heirloom Tomatoes"] },
-  "46": { category: "Fresh Fruits & Berries", description: "Sweet Dutch strawberries from the Betuwe, cherries, and orchard apples.", products: ["Strawberries", "Elstar Apples", "Raspberries"] },
-  "47": { category: "Nuts & Dried Fruits", description: "Freshly roasted cashews, almonds, dates, and candied tropical fruit.", products: ["Warm Roasted Nuts", "Medjool Dates", "Trail Mixes"] },
-  "48": { category: "Olives & Mediterranean Tapas", description: "Marinated Greek olives, stuffed peppers, hummus, and freshly baked pita.", products: ["Garlic Olives", "Feta Stuffed Peppers", "Tzatziki"] },
-  "49": { category: "Butcher & Charcuterie", description: "Artisan dry sausages (droge worst), smoked bacon, and Dutch cold cuts.", products: ["Groninger Worst", "Smoked Bacon", "Ham"] },
-  "50": { category: "Poultry & Organic Eggs", description: "Free-range farmhouse eggs, rotisserie chicken, and poultry cuts.", products: ["Farm Eggs", "Roast Chicken", "Duck Breast"] },
-  "51": { category: "Spices, Herbs & Teas", description: "Loose leaf herbal teas, Indonesian curry spices, and freshly ground pepper.", products: ["Indonesian Spices", "Earl Grey", "Chili Flakes"] },
-  "52": { category: "Coffee & Espresso Bar", description: "Specialty single-origin espresso beans, pour-over coffee, and matcha.", products: ["Filter Coffee", "Espresso", "Coffee Beans"] },
-  "53": { category: "International Street Food", description: "Fresh Vietnamese spring rolls, dim sum, and warm savoury snacks.", products: ["Lumpia", "Dumplings", "Chili Sauce"] },
-  "54": { category: "Clothing & Knitwear", description: "Warm woollen socks, scarves, knitted sweaters, and raincoats.", products: ["Wool Sweaters", "Scarves", "Rain Jackets"] },
-  "55": { category: "Fabrics & Haberdashery", description: "Cotton fabric by the meter, ribbons, buttons, and sewing supplies.", products: ["Printed Fabrics", "Buttons", "Yarn"] },
-  "56": { category: "Leather Goods & Belts", description: "Handmade leather belts, leather wallets, and messenger bags.", products: ["Leather Belts", "Wallets", "Canvas Bags"] },
-  "57": { category: "Vintage & Antiques", description: "Leiden porcelain, antique books, Delft Blue ceramics, and curiosities.", products: ["Delftware", "Vintage Books", "Brassware"] },
-  "58": { category: "Housewares & Kitchen", description: "Wooden cutting boards, Dutch cheese slicers, and kitchen knives.", products: ["Cheese Slicers (Kaasschaaf)", "Oak Boards", "Cast Iron"] },
-  "59": { category: "Watch Repair & Jewellery", description: "Silver jewelry, watch battery replacements, and handmade bracelets.", products: ["Silver Rings", "Watch Straps", "Pendants"] },
-  "60": { category: "Plants & Succulents", description: "Bonsai trees, cacti, succulents, and ceramic planting pots.", products: ["Succulents", "Terracotta Pots", "Herbs"] },
-  "61": { category: "Fresh Cut Flowers", description: "Seasonal Dutch garden blooms, sunflowers, and custom wrapped bouquets.", products: ["Sunflowers", "Roses", "Eucalyptus"] },
-  "62": { category: "Flower Market Stall", description: "Cut stems, lilies, dried flowers, and decorative glass vases.", products: ["Dried Flower Bunches", "Lilies", "Vases"] },
-  "63": { category: "Bakery & Bagels", description: "Pretzels, freshly baked Dutch bolletjes, and seeded baguettes.", products: ["Krentenbollen", "Baguettes", "Pretzels"] },
-  "64": { category: "Italian Deli & Pasta", description: "Fresh egg pasta, Parmigiano Reggiano, prosciutto, and pestos.", products: ["Fresh Tagliatelle", "Parmesan", "Pesto Genovese"] },
-  "65": { category: "Greek Specialties", description: "Greek feta, wild thyme honey, and cold-pressed extra virgin olive oil.", products: ["Greek Olive Oil", "Thyme Honey", "Dolmades"] },
-  "66": { category: "Dutch Cheese Master", description: "Old Amsterdam, cumin Gouda, and specialty sheep milk cheeses.", products: ["Old Amsterdam", "Sheep Cheese", "Mustard"] },
-  "67": { category: "Artisanal Jams & Honey", description: "Local Dutch wildflower honey, strawberry jam, and apple butter.", products: ["Leiden City Honey", "Fruit Jams", "Apple Stroop"] },
-  "68": { category: "French Crepes & Waffles", description: "Sweet Nutella crepes, sugar waffles, and galettes.", products: ["Nutella Crepes", "Liege Waffles", "Cider"] },
-  "69": { category: "Fresh Fish & Salmon", description: "Norwegian salmon fillets, smoked trout, and fish salads.", products: ["Fresh Salmon", "Fish Salad", "Smoked Trout"] },
-  "70": { category: "Fried Fish & Calamari", description: "Freshly battered kibbeling with ravigotte sauce, squid rings, and chips.", products: ["Kibbeling Menu", "Ravigotte Sauce", "Fried Squid"] },
-  "71": { category: "Frites & Dutch Snacks", description: "Authentic Dutch fries in a paper cone with mayonnaise and peanut sauce.", products: ["Patat / Frites", "Mayo & Satay Sauce", "Kroket"] },
-  "72": { category: "Farm Fresh Potatoes & Onions", description: "Dutch clay potatoes (Bintje, Nicola), shallots, and red onions.", products: ["Bintje Potatoes", "Shallots", "Sweet Potatoes"] },
-  "73": { category: "Exotic Fruits & Juices", description: "Freshly squeezed orange juice, mangoes, avocados, and dragon fruit.", products: ["Fresh Juice", "Avocados", "Papayas"] },
-  "74": { category: "Organic Mushrooms & Herbs", description: "Chanterelles, shiitake, oyster mushrooms, fresh basil, and coriander.", products: ["Oyster Mushrooms", "Fresh Basil", "Truffle Oil"] },
-  "75": { category: "Fresh Flowers & Seedlings", description: "Colorful outdoor bedding plants, lavender, and tomato seedlings.", products: ["Lavender", "Tomato Seedlings", "Hanging Baskets"] }
+  "34": { category: "Bloemen & Planten", description: "Verse seizoensbloemen, tulpen en potplanten nabij de Koornbrug.", products: ["Tulpen", "Hydrangea", "Kamerplanten"] },
+  "35": { category: "Bloemist & Bollen", description: "Sierbloemen, snijbloemen en Hollandse bloembollen.", products: ["Bloembollen", "Boeketten", "Planten"] },
+  "39": { category: "Vis & Zeevruchten", description: "Hollandse Nieuwe haring met uitjes, warme kibbeling en gerookte paling.", products: ["Hollandse Nieuwe", "Kibbeling", "Gerookte Makreel"] },
+  "40": { category: "Verse Vis & Schaaldieren", description: "Noordzeekabeljauw, zalmfilet, garnalen en gebakken vis.", products: ["Kabeljauw", "Noordzeegarnalen", "Oesters"] },
+  "41": { category: "Boerenkaas & Zuivel", description: "Belegen Boerenkaas, Leidse Sleutelkaas met komijn en geitenkaas.", products: ["Oude Goudse", "Leidse Sleutelkaas", "Kruidenkaas"] },
+  "42": { category: "Ambachtelijke Kaas & Boter", description: "Authentieke Leidse komijnekaas, boerenroomboter en Europese kazen.", products: ["Komijnekaas", "Grasboter", "Truffelkaas"] },
+  "43": { category: "Bakkerij & Desembrood", description: "Knapperig zuurdesembrood, verse appeltaart en croissants.", products: ["Desembrood", "Appeltaart", "Croissants"] },
+  "44": { category: "Stroopwafels & Gebak", description: "Warme verse stroopwafels met warme karamelsiroop van het ijzer.", products: ["Super Stroopwafel", "Speculaas", "Poffertjes"] },
+  "45": { category: "Biologische Groenten", description: "Lokaal geteelde wortels, boerenkool, trostomaten en seizoensgroenten.", products: ["Wortelen", "Boerenkool", "Trostomaten"] },
+  "46": { category: "Vers Fruit & Bessen", description: "Zoete Betuwse aardbeien, kersen, frambozen en Elstar appelen.", products: ["Aardbeien", "Elstar Appels", "Frambozen"] },
+  "47": { category: "Noten & Zuidvruchten", description: "Vers gebrande cashewnoten, amandelen, Medjoul dadels en studentenhaver.", products: ["Gebrande Noten", "Medjoul Dadels", "Notenmix"] },
+  "48": { category: "Olijven & Mediterrane Tapas", description: "Gemarineerde olijven, gevulde pepertjes, hummus en vers pitabrood.", products: ["Knoflookolijven", "Fetaspiesjes", "Tzatziki"] },
+  "49": { category: "Slagerij & Charcuterie", description: "Droge worsten, gerookt spek en ambachtelijke vleeswaren.", products: ["Groninger Worst", "Gerookt Spek", "Boerenham"] },
+  "50": { category: "Poelier & Scharreleieren", description: "Verse scharreleieren, gegrilde kip en gevogelte.", products: ["Boereneieren", "Gegrilde Kip", "Eendenborst"] },
+  "51": { category: "Kruiden & Thee", description: "Losse thee, specerijen, curry's en versgemalen peper.", products: ["Kruidenthee", "Chilivlokken", "Specerijen"] },
+  "52": { category: "Koffiebar & Bonen", description: "Single-origin espressobonen, filterkoffie en vers gebrande bonen.", products: ["Espresso", "Filterkoffie", "Koffiebonen"] },
+  "53": { category: "Street Food & Loempia's", description: "Vietnamese loempia's, dim sum en warme oosterse snacks.", products: ["Loempia", "Dumplings", "Chilisaus"] },
+  "54": { category: "Kleding & Breiwerk", description: "Wollen sokken, sjaals, truien en regenkleding.", products: ["Wollen Truien", "Sjaals", "Regenjassen"] },
+  "55": { category: "Stoffen & Fournituren", description: "Katoenen stoffen per meter, linten, knopen en naaigerei.", products: ["Bedrukte Stoffen", "Knopen", "Garen"] },
+  "56": { category: "Lederwaren & Riemen", description: "Leren riemen, portemonnees en tassen.", products: ["Leren Riemen", "Portemonnees", "Tassen"] },
+  "57": { category: "Vintage & Curiosa", description: "Leids porselein, antieke boeken en Delfts blauw.", products: ["Delfts Blauw", "Boeken", "Koperwerk"] },
+  "58": { category: "Huishoud & Keuken", description: "Houten snijplanken, kaasschaven en keukenmessen.", products: ["Kaasschaaf", "Eiken Planken", "Keukenmessen"] },
+  "59": { category: "Sieraden & Horloges", description: "Zilveren sieraden, horlogebandjes en reparatie.", products: ["Zilveren Ringen", "Horlogebandjes", "Hangers"] },
+  "60": { category: "Planten & Cactussen", description: "Vetplanten, cactussen, bonsai en aardewerk potten.", products: ["Vetplanten", "Terracotta Potten", "Kruiden"] },
+  "61": { category: "Snijbloemen & Boeketten", description: "Seizoensbloemen, zonnebloemen en veldboeketten.", products: ["Zonnebloemen", "Rozen", "Eucalyptus"] },
+  "62": { category: "Bloemenkraam", description: "Snijbloemen, lelies en droogbloemen.", products: ["Droogbloemen", "Lelies", "Vazen"] },
+  "63": { category: "Bakkerij & Krentenbollen", description: "Krentenbollen, stokbrood en pretzels.", products: ["Krentenbollen", "Stokbrood", "Pretzels"] },
+  "64": { category: "Italiaanse Delicatessen", description: "Verse pasta, Parmezaanse kaas, prosciutto en pesto.", products: ["Verse Pasta", "Parmezaan", "Pesto Genovese"] },
+  "65": { category: "Griekse Specialiteiten", description: "Griekse feta, tijmhoning en extra vergine olijfolie.", products: ["Olijfolie", "Tijmhoning", "Dolmades"] },
+  "66": { category: "Kassenspecialist", description: "Oude Amsterdammer, komijnenkaas en schapenkaas.", products: ["Oude Kaas", "Schapenkaas", "Marktmosterd"] },
+  "67": { category: "Honing & Streekjam", description: "Leidse stadshoning, frambozenjam en appelstroop.", products: ["Stadshoning", "Fruitjam", "Appelstroop"] },
+  "68": { category: "Crêpes & Luikse Wafels", description: "Nutellacrêpes, suikerwafels en galettes.", products: ["Nutella Crêpe", "Luikse Wafel", "Cider"] },
+  "69": { category: "Zalm & Gerookte Vis", description: "Noorse zalm, gerookte forel en vissalades.", products: ["Zalmfilet", "Vissalade", "Gerookte Forel"] },
+  "70": { category: "Gebakken Vis & Calamaris", description: "Kibbeling met ravigottesaus, inktvisringen en patat.", products: ["Kibbeling Menu", "Ravigottesaus", "Inktvisringen"] },
+  "71": { category: "Vlaamse Friet & Snacks", description: "Verse friet in puntzak met mayonaise en satésaus.", products: ["Verse Friet", "Mayonaise & Satésaus", "Kroket"] },
+  "72": { category: "Aardappelen & Uien", description: "Klei-aardappelen (Bintje, Nicola), sjalotten en rode uien.", products: ["Bintjes", "Sjalotten", "Zoete Aardappel"] },
+  "73": { category: "Exotisch Fruit & Sappen", description: "Vers geperste sinaasappelsap, mango's en avocado's.", products: ["Vers Sap", "Avocado's", "Mango's"] },
+  "74": { category: "Paddenstoelen & Kruiden", description: "Chanterelles, shiitake, oesterzwammen en basilicum.", products: ["Oesterzwammen", "Verse Basilicum", "Truffelolie"] },
+  "75": { category: "Tuinplanten & Zaadgoed", description: "Buitenplanten, lavendel en tomatenplantjes.", products: ["Lavendel", "Tomatenplantjes", "Balkonplanten"] }
 };
 
 export function parseMarketMarkers(dataset: MarketDataset = rawMarketData): MarkerItem[] {
@@ -418,14 +444,14 @@ export function parseMarketMarkers(dataset: MarketDataset = rawMarketData): Mark
 
     if (isNumber) {
       const stallInfo = STALL_SPECIALTIES[textUpper] || {
-        category: "Market Stall",
-        description: `Market stand #${textUpper} on the Leiden canal promenade.`,
-        products: ["Fresh Market Wares", "Local Produce"]
+        category: "Marktkraam",
+        description: `Marktkraam #${textUpper} op de Leidse warenmarkt.`,
+        products: ["Verse marktwaren"]
       };
 
       const x = m.x_percent;
-      let zone = "Botermarkt Quay";
-      if (x > 65) zone = "Nieuwe Rijn Quay (East)";
+      let zone = "Botermarkt";
+      if (x > 65) zone = "Nieuwe Rijn";
       else if (m.y_percent > 85) zone = "Gangetje / Karnemelksbrug";
 
       return {
@@ -444,9 +470,9 @@ export function parseMarketMarkers(dataset: MarketDataset = rawMarketData): Mark
     } else {
       const landmark = LANDMARK_METADATA[textUpper] || {
         type: textUpper.includes('BRUG') ? 'bridge' : 'landmark',
-        zone: 'Leiden Market Center',
-        category: textUpper.includes('BRUG') ? 'Canal Bridge' : 'Historic Landmark',
-        description: `Prominent marker for ${m.text} in the Leiden Market district.`
+        zone: 'Leiden Centrum',
+        category: textUpper.includes('BRUG') ? 'Brug' : 'Locatie',
+        description: `${m.text} in het Leidse marktgebied.`
       };
 
       return {

@@ -1,28 +1,54 @@
 {
+  "anchors": [
+    {
+      "id": "anchor-koornbrug",
+      "name": "Koornbrug",
+      "lat": 52.157994,
+      "lng": 4.491849
+    },
+    {
+      "id": "anchor-nieuwe-rijn",
+      "name": "Nieuwe Rijn",
+      "lat": 52.157587,
+      "lng": 4.493298
+    },
+    {
+      "id": "anchor-botermarkt",
+      "name": "Botermarkt",
+      "lat": 52.157176,
+      "lng": 4.491716
+    },
+    {
+      "id": "anchor-karnemelksbrug",
+      "name": "Karnemelksbrug",
+      "lat": 52.156957,
+      "lng": 4.493961
+    }
+  ],
   "image_file": "extracted_map.png",
   "width": 1614,
   "height": 2481,
   "markers": [
     {
       "text": "KOORNBRUG",
-      "x_percent": 20.96,
-      "y_percent": 17.313,
-      "lat": 52.158154,
-      "lng": 4.491734
+      "x_percent": 24.27,
+      "y_percent": 16.878,
+      "lat": 52.158162,
+      "lng": 4.491849
     },
     {
       "text": "34",
-      "x_percent": 45.249,
-      "y_percent": 37.093,
-      "lat": 52.157758,
-      "lng": 4.492584
+      "x_percent": 45.78,
+      "y_percent": 38.608,
+      "lat": 52.157728,
+      "lng": 4.492602
     },
     {
       "text": "35",
-      "x_percent": 48.067,
-      "y_percent": 42.911,
-      "lat": 52.157642,
-      "lng": 4.492682
+      "x_percent": 48.514,
+      "y_percent": 43.304,
+      "lat": 52.157634,
+      "lng": 4.492698
     },
     {
       "text": "39",
@@ -40,17 +66,17 @@
     },
     {
       "text": "41",
-      "x_percent": 38.305,
-      "y_percent": 27.985,
-      "lat": 52.15794,
-      "lng": 4.492341
+      "x_percent": 39.4,
+      "y_percent": 29.802,
+      "lat": 52.157904,
+      "lng": 4.492379
     },
     {
       "text": "42",
-      "x_percent": 35.546,
-      "y_percent": 25.023,
-      "lat": 52.158,
-      "lng": 4.492244
+      "x_percent": 36.302,
+      "y_percent": 25.888,
+      "lat": 52.157982,
+      "lng": 4.492271
     },
     {
       "text": "43",
@@ -68,66 +94,66 @@
     },
     {
       "text": "NIEUWE",
-      "x_percent": 62.829,
-      "y_percent": 47.895,
-      "lat": 52.157542,
-      "lng": 4.493199
+      "x_percent": 56.714,
+      "y_percent": 42.128,
+      "lat": 52.157657,
+      "lng": 4.492985
     },
     {
       "text": "RIJN",
-      "x_percent": 69.572,
-      "y_percent": 48.389,
-      "lat": 52.157532,
-      "lng": 4.493435
+      "x_percent": 61.634,
+      "y_percent": 42.128,
+      "lat": 52.157657,
+      "lng": 4.493157
     },
     {
       "text": "BOTERMARKT",
-      "x_percent": 28.496,
-      "y_percent": 61.882,
-      "lat": 52.157262,
-      "lng": 4.491997
+      "x_percent": 31.746,
+      "y_percent": 64.632,
+      "lat": 52.157207,
+      "lng": 4.492111
     },
     {
       "text": "45",
-      "x_percent": 21.406,
-      "y_percent": 34.766,
-      "lat": 52.157805,
-      "lng": 4.491749
+      "x_percent": 24.273,
+      "y_percent": 33.91,
+      "lat": 52.157822,
+      "lng": 4.49185
     },
     {
       "text": "46",
-      "x_percent": 25.525,
-      "y_percent": 39.42,
-      "lat": 52.157712,
-      "lng": 4.491893
+      "x_percent": 27.918,
+      "y_percent": 37.236,
+      "lat": 52.157755,
+      "lng": 4.491977
     },
     {
       "text": "47",
-      "x_percent": 33.847,
-      "y_percent": 49.678,
-      "lat": 52.157506,
-      "lng": 4.492185
+      "x_percent": 34.297,
+      "y_percent": 47.216,
+      "lat": 52.157556,
+      "lng": 4.4922
     },
     {
       "text": "48",
-      "x_percent": 35.279,
-      "y_percent": 54.314,
-      "lat": 52.157414,
-      "lng": 4.492235
+      "x_percent": 37.031,
+      "y_percent": 51.521,
+      "lat": 52.15747,
+      "lng": 4.492296
     },
     {
       "text": "49",
-      "x_percent": 31.159,
-      "y_percent": 45.704,
-      "lat": 52.157586,
-      "lng": 4.492091
+      "x_percent": 30.651,
+      "y_percent": 41.736,
+      "lat": 52.157665,
+      "lng": 4.492073
     },
     {
       "text": "50",
-      "x_percent": 39.397,
-      "y_percent": 57.805,
-      "lat": 52.157344,
-      "lng": 4.492379
+      "x_percent": 40.13,
+      "y_percent": 55.435,
+      "lat": 52.157391,
+      "lng": 4.492405
     },
     {
       "text": "51",
@@ -138,24 +164,24 @@
     },
     {
       "text": "52",
-      "x_percent": 45.032,
-      "y_percent": 65.484,
-      "lat": 52.15719,
-      "lng": 4.492576
+      "x_percent": 46.327,
+      "y_percent": 65.416,
+      "lat": 52.157192,
+      "lng": 4.492621
     },
     {
       "text": "53",
-      "x_percent": 48.934,
-      "y_percent": 68.509,
-      "lat": 52.15713,
-      "lng": 4.492713
+      "x_percent": 49.972,
+      "y_percent": 69.918,
+      "lat": 52.157102,
+      "lng": 4.492749
     },
     {
       "text": "GANGETJE",
-      "x_percent": 62.532,
-      "y_percent": 92.818,
-      "lat": 52.156644,
-      "lng": 4.493189
+      "x_percent": 59.448,
+      "y_percent": 93.009,
+      "lat": 52.15664,
+      "lng": 4.493081
     },
     {
       "text": "54",
@@ -180,143 +206,143 @@
     },
     {
       "text": "KARNEMELKSBRUG",
-      "x_percent": 89.19,
-      "y_percent": 94.958,
-      "lat": 52.156601,
-      "lng": 4.494122
+      "x_percent": 83.146,
+      "y_percent": 96.724,
+      "lat": 52.156566,
+      "lng": 4.49391
     },
     {
       "text": "57",
-      "x_percent": 51.536,
-      "y_percent": 72.931,
-      "lat": 52.157041,
-      "lng": 4.492804
+      "x_percent": 53.253,
+      "y_percent": 73.636,
+      "lat": 52.157027,
+      "lng": 4.492864
     },
     {
       "text": "58",
-      "x_percent": 54.786,
-      "y_percent": 77.12,
-      "lat": 52.156958,
-      "lng": 4.492918
+      "x_percent": 56.899,
+      "y_percent": 78.332,
+      "lat": 52.156933,
+      "lng": 4.492991
     },
     {
       "text": "59",
-      "x_percent": 57.605,
-      "y_percent": 81.309,
-      "lat": 52.156874,
-      "lng": 4.493016
+      "x_percent": 61.091,
+      "y_percent": 83.812,
+      "lat": 52.156824,
+      "lng": 4.493138
     },
     {
       "text": "60",
-      "x_percent": 60.206,
-      "y_percent": 83.17,
-      "lat": 52.156837,
-      "lng": 4.493107
+      "x_percent": 64.372,
+      "y_percent": 87.335,
+      "lat": 52.156753,
+      "lng": 4.493253
     },
     {
       "text": "61",
-      "x_percent": 73.863,
-      "y_percent": 90.85,
-      "lat": 52.156683,
-      "lng": 4.493585
+      "x_percent": 74.943,
+      "y_percent": 91.247,
+      "lat": 52.156675,
+      "lng": 4.493623
     },
     {
       "text": "62",
-      "x_percent": 76.03,
-      "y_percent": 88.756,
-      "lat": 52.156725,
-      "lng": 4.493661
+      "x_percent": 76.766,
+      "y_percent": 88.312,
+      "lat": 52.156734,
+      "lng": 4.493687
     },
     {
       "text": "63",
-      "x_percent": 79.716,
-      "y_percent": 85.032,
-      "lat": 52.156799,
-      "lng": 4.49379
+      "x_percent": 79.135,
+      "y_percent": 85.964,
+      "lat": 52.156781,
+      "lng": 4.49377
     },
     {
       "text": "64",
-      "x_percent": 79.282,
-      "y_percent": 81.541,
-      "lat": 52.156869,
-      "lng": 4.493775
+      "x_percent": 81.323,
+      "y_percent": 83.225,
+      "lat": 52.156836,
+      "lng": 4.493846
     },
     {
       "text": "65",
-      "x_percent": 76.68,
-      "y_percent": 79.912,
-      "lat": 52.156902,
-      "lng": 4.493684
+      "x_percent": 79.5,
+      "y_percent": 79.114,
+      "lat": 52.156918,
+      "lng": 4.493783
     },
     {
       "text": "66",
-      "x_percent": 73.862,
-      "y_percent": 76.887,
-      "lat": 52.156962,
-      "lng": 4.493585
+      "x_percent": 77.131,
+      "y_percent": 76.57,
+      "lat": 52.156969,
+      "lng": 4.4937
     },
     {
       "text": "67",
-      "x_percent": 72.127,
-      "y_percent": 75.491,
-      "lat": 52.15699,
-      "lng": 4.493524
+      "x_percent": 73.85,
+      "y_percent": 73.438,
+      "lat": 52.157031,
+      "lng": 4.493585
     },
     {
       "text": "68",
-      "x_percent": 69.526,
-      "y_percent": 72.233,
-      "lat": 52.157055,
-      "lng": 4.493433
+      "x_percent": 70.751,
+      "y_percent": 70.503,
+      "lat": 52.15709,
+      "lng": 4.493476
     },
     {
       "text": "69",
-      "x_percent": 68.441,
-      "y_percent": 68.742,
-      "lat": 52.157125,
-      "lng": 4.493395
+      "x_percent": 69.11,
+      "y_percent": 67.177,
+      "lat": 52.157156,
+      "lng": 4.493419
     },
     {
       "text": "70",
-      "x_percent": 66.924,
-      "y_percent": 64.321,
-      "lat": 52.157214,
-      "lng": 4.493342
+      "x_percent": 65.829,
+      "y_percent": 64.634,
+      "lat": 52.157207,
+      "lng": 4.493304
     },
     {
       "text": "71",
-      "x_percent": 64.541,
-      "y_percent": 62.459,
-      "lat": 52.157251,
-      "lng": 4.493259
+      "x_percent": 63.459,
+      "y_percent": 62.677,
+      "lat": 52.157246,
+      "lng": 4.493221
     },
     {
       "text": "72",
-      "x_percent": 63.024,
-      "y_percent": 59.434,
-      "lat": 52.157311,
-      "lng": 4.493206
+      "x_percent": 60.725,
+      "y_percent": 59.546,
+      "lat": 52.157309,
+      "lng": 4.493125
     },
     {
       "text": "73",
-      "x_percent": 59.773,
-      "y_percent": 57.805,
-      "lat": 52.157344,
-      "lng": 4.493092
+      "x_percent": 58.174,
+      "y_percent": 55.827,
+      "lat": 52.157383,
+      "lng": 4.493036
     },
     {
       "text": "74",
-      "x_percent": 57.171,
-      "y_percent": 52.918,
-      "lat": 52.157442,
-      "lng": 4.493001
+      "x_percent": 55.987,
+      "y_percent": 52.305,
+      "lat": 52.157454,
+      "lng": 4.49296
     },
     {
       "text": "75",
-      "x_percent": 52.619,
-      "y_percent": 50.125,
-      "lat": 52.157497,
-      "lng": 4.492842
+      "x_percent": 51.43,
+      "y_percent": 47.803,
+      "lat": 52.157544,
+      "lng": 4.4928
     }
   ]
 }

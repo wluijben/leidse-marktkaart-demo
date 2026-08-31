@@ -50,7 +50,7 @@ export const PrintCoordinatesModal: React.FC<PrintCoordinatesModalProps> = ({
   // Generate Python format with current anchor coordinates
   const pythonString = `# Calibrated Leiden Market Coordinates (OpenStreetMap)
 # 4 Ground-Truth Anchors:
-${anchors.map((a) => `# - ${a.name}: lat ${a.lat.toFixed(5)}, lng ${a.lng.toFixed(5)}`).join('\n')}
+${anchors.map((a) => `# - ${a.name}: lat ${a.lat.toFixed(6)}, lng ${a.lng.toFixed(6)}`).join('\n')}
 
 anchors = [
 ${anchors.map((a) => `    {"name": "${a.name}", "lat": ${a.lat}, "lng": ${a.lng}}`).join(',\n')}
@@ -104,11 +104,11 @@ dataset_meta = {
               <h3 className="text-base font-bold text-white flex items-center gap-2">
                 <span>Leiden Market Coordinates Output</span>
                 <span className="text-[11px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full font-mono">
-                  {dataset.markers.length} stalls & 4 anchors
+                  {dataset.markers.length} kramen & 4 ankers
                 </span>
               </h3>
               <p className="text-xs text-slate-400">
-                Calibrated against Koornbrug · Botermarkt · Nieuwe Rijn · Karnemelksbrug
+                Gekalibreerd op Koornbrug · Nieuwe Rijn · Botermarkt · Karnemelksbrug
               </p>
             </div>
           </div>
@@ -169,7 +169,7 @@ dataset_meta = {
               className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 hover:border-amber-400/50 text-xs font-semibold transition-all shadow-sm active:scale-95 cursor-pointer"
             >
               {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-              <span>{copied ? 'Copied to Clipboard!' : 'Copy Code'}</span>
+              <span>{copied ? 'Gekopieerd!' : 'Kopieer Code'}</span>
             </button>
 
             <button
@@ -207,12 +207,12 @@ dataset_meta = {
               <div className="border border-indigo-900/60 rounded-xl overflow-hidden bg-slate-950">
                 <div className="bg-indigo-950/60 px-3.5 py-2 text-indigo-200 font-sans font-bold text-xs flex items-center gap-2 border-b border-indigo-900/60">
                   <Anchor className="w-4 h-4 text-indigo-400" />
-                  <span>4 Ground-Truth Lat/Long Anchors (Draggable)</span>
+                  <span>4 Ankerpunten</span>
                 </div>
                 <table className="w-full text-left text-xs border-collapse font-mono">
                   <thead className="bg-slate-900 text-slate-400 font-semibold border-b border-slate-800">
                     <tr>
-                      <th className="p-2 pl-4">Anchor Name</th>
+                      <th className="p-2 pl-4">Ankerpunt</th>
                       <th className="p-2 text-right">Latitude (°N)</th>
                       <th className="p-2 text-right pr-4">Longitude (°E)</th>
                     </tr>
@@ -220,9 +220,8 @@ dataset_meta = {
                   <tbody className="divide-y divide-slate-800/60">
                     {anchors.map((a) => (
                       <tr key={a.id} className="hover:bg-slate-800/40">
-                        <td className="p-2 pl-4 text-white font-bold flex items-center gap-2">
-                          <span>{a.icon}</span>
-                          <span>{a.name}</span>
+                        <td className="p-2 pl-4 text-white font-bold">
+                          {a.name}
                         </td>
                         <td className="p-2 text-right text-indigo-300 font-bold">{a.lat.toFixed(6)}</td>
                         <td className="p-2 text-right pr-4 text-indigo-300 font-bold">{a.lng.toFixed(6)}</td>
@@ -238,7 +237,7 @@ dataset_meta = {
                   <table className="w-full text-left text-xs border-collapse">
                     <thead className="bg-slate-900 sticky top-0 text-slate-400 font-semibold border-b border-slate-800">
                       <tr>
-                        <th className="p-2.5 pl-4"># / Name</th>
+                        <th className="p-2.5 pl-4"># / Naam</th>
                         <th className="p-2.5">Type</th>
                         <th className="p-2.5 text-right font-mono">Latitude</th>
                         <th className="p-2.5 text-right font-mono">Longitude</th>
@@ -261,13 +260,13 @@ dataset_meta = {
                               <span>{m.text}</span>
                             </td>
                             <td className="p-2.5 text-slate-400 font-sans text-[11px]">
-                              {isNumber ? 'Stall' : 'Landmark / Bridge'}
+                              {isNumber ? 'Kraam' : 'Locatie / Brug'}
                             </td>
                             <td className="p-2.5 text-right text-emerald-300 font-bold">
-                              {m.lat ? m.lat.toFixed(5) : '-'}
+                              {m.lat ? m.lat.toFixed(6) : '-'}
                             </td>
                             <td className="p-2.5 text-right text-emerald-300 font-bold">
-                              {m.lng ? m.lng.toFixed(5) : '-'}
+                              {m.lng ? m.lng.toFixed(6) : '-'}
                             </td>
                             <td className="p-2.5 text-right text-amber-300">
                               {m.x_percent.toFixed(2)}%
@@ -290,14 +289,14 @@ dataset_meta = {
         <div className="p-4 border-t border-slate-800 flex items-center justify-between bg-slate-950/80 text-xs text-slate-400">
           <div className="flex items-center gap-1.5 text-emerald-400">
             <CheckCircle2 className="w-4 h-4" />
-            <span>Coordinates & Anchors saved and calibrated.</span>
+            <span>Coördinaten en ankerpunten gekalibreerd.</span>
           </div>
 
           <button
             onClick={onClose}
             className="px-4 py-2 rounded-xl font-semibold bg-slate-800 hover:bg-slate-700 text-white transition-colors cursor-pointer"
           >
-            Close
+            Sluiten
           </button>
         </div>
       </div>
