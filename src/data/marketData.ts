@@ -27,16 +27,29 @@ export const rawMarketData: MarketDataset = {
       "lng": 4.493961
     }
   ],
+  "map_view": {
+    "center": {
+      "lat": 52.15742,
+      "lng": 4.49250
+    },
+    "zoom": 18.25,
+    "bounds": {
+      "north": 52.15875,
+      "south": 52.15610,
+      "east": 4.49480,
+      "west": 4.49020
+    }
+  },
   "image_file": "extracted_map.png",
   "width": 1614,
   "height": 2481,
   "markers": [
     {
       "text": "KOORNBRUG",
-      "x_percent": 24.27,
-      "y_percent": 16.878,
-      "lat": 52.158162,
-      "lng": 4.491849
+      "x_percent": 18.626,
+      "y_percent": 0,
+      "lat": 52.158511,
+      "lng": 4.491652
     },
     {
       "text": "34",
@@ -96,24 +109,24 @@ export const rawMarketData: MarketDataset = {
     },
     {
       "text": "NIEUWE",
-      "x_percent": 56.714,
-      "y_percent": 42.128,
-      "lat": 52.157657,
-      "lng": 4.492985
+      "x_percent": 53.251,
+      "y_percent": 21.382,
+      "lat": 52.158072,
+      "lng": 4.492864
     },
     {
       "text": "RIJN",
-      "x_percent": 61.634,
-      "y_percent": 42.128,
-      "lat": 52.157657,
-      "lng": 4.493157
+      "x_percent": 54.708,
+      "y_percent": 28.037,
+      "lat": 52.157939,
+      "lng": 4.492915
     },
     {
       "text": "BOTERMARKT",
-      "x_percent": 31.746,
-      "y_percent": 64.632,
-      "lat": 52.157207,
-      "lng": 4.492111
+      "x_percent": 23.37,
+      "y_percent": 66.396,
+      "lat": 52.157172,
+      "lng": 4.491818
     },
     {
       "text": "45",
@@ -180,17 +193,17 @@ export const rawMarketData: MarketDataset = {
     },
     {
       "text": "GANGETJE",
-      "x_percent": 59.448,
-      "y_percent": 93.009,
-      "lat": 52.15664,
-      "lng": 4.493081
+      "x_percent": 38.312,
+      "y_percent": 82.442,
+      "lat": 52.156851,
+      "lng": 4.492341
     },
     {
       "text": "54",
-      "x_percent": 61.298,
-      "y_percent": 100,
-      "lat": 52.15645,
-      "lng": 4.493145
+      "x_percent": 66.708,
+      "y_percent": 97.366,
+      "lat": 52.156553,
+      "lng": 4.493335
     },
     {
       "text": "55",
@@ -201,17 +214,17 @@ export const rawMarketData: MarketDataset = {
     },
     {
       "text": "56",
-      "x_percent": 68.883,
-      "y_percent": 95.272,
-      "lat": 52.156595,
-      "lng": 4.493411
+      "x_percent": 69.743,
+      "y_percent": 94.34,
+      "lat": 52.156613,
+      "lng": 4.493441
     },
     {
       "text": "KARNEMELKSBRUG",
-      "x_percent": 83.146,
-      "y_percent": 96.724,
-      "lat": 52.156566,
-      "lng": 4.49391
+      "x_percent": 87.15,
+      "y_percent": 100,
+      "lat": 52.156334,
+      "lng": 4.49405
     },
     {
       "text": "57",
@@ -425,7 +438,7 @@ const STALL_SPECIALTIES: Record<string, { category: string; description: string;
   "63": { category: "Bakkerij & Krentenbollen", description: "Krentenbollen, stokbrood en pretzels.", products: ["Krentenbollen", "Stokbrood", "Pretzels"] },
   "64": { category: "Italiaanse Delicatessen", description: "Verse pasta, Parmezaanse kaas, prosciutto en pesto.", products: ["Verse Pasta", "Parmezaan", "Pesto Genovese"] },
   "65": { category: "Griekse Specialiteiten", description: "Griekse feta, tijmhoning en extra vergine olijfolie.", products: ["Olijfolie", "Tijmhoning", "Dolmades"] },
-  "66": { category: "Kassenspecialist", description: "Oude Amsterdammer, komijnenkaas en schapenkaas.", products: ["Oude Kaas", "Schapenkaas", "Marktmosterd"] },
+  "66": { category: "Kaasspecialist", description: "Oude Amsterdammer, komijnenkaas en schapenkaas.", products: ["Oude Kaas", "Schapenkaas", "Marktmosterd"] },
   "67": { category: "Honing & Streekjam", description: "Leidse stadshoning, frambozenjam en appelstroop.", products: ["Stadshoning", "Fruitjam", "Appelstroop"] },
   "68": { category: "Crêpes & Luikse Wafels", description: "Nutellacrêpes, suikerwafels en galettes.", products: ["Nutella Crêpe", "Luikse Wafel", "Cider"] },
   "69": { category: "Zalm & Gerookte Vis", description: "Noorse zalm, gerookte forel en vissalades.", products: ["Zalmfilet", "Vissalade", "Gerookte Forel"] },

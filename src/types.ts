@@ -23,10 +23,25 @@ export interface AnchorItem {
   icon?: string;
 }
 
+export interface MapViewState {
+  center: {
+    lat: number;
+    lng: number;
+  };
+  zoom: number;
+  bounds?: {
+    north: number;
+    south: number;
+    east: number;
+    west: number;
+  };
+}
+
 export interface MarketDataset {
   image_file: string;
   width: number;
   height: number;
+  map_view?: MapViewState;
   anchors?: Array<{
     id: string;
     name: string;

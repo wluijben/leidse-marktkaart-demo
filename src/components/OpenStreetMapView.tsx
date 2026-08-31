@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { MarkerItem, AnchorItem } from '../types';
+import { MarkerItem, AnchorItem, MapViewState } from '../types';
 import { Focus, Eye, EyeOff, Maximize2, Satellite, Map as MapIcon, Layers } from 'lucide-react';
 
 interface OpenStreetMapViewProps {
@@ -11,6 +11,7 @@ interface OpenStreetMapViewProps {
   onSelectMarker: (marker: MarkerItem | null) => void;
   onMarkerDrag: (markerId: string, lat: number, lng: number, xPercent?: number, yPercent?: number) => void;
   onAnchorDrag: (anchorId: string, lat: number, lng: number) => void;
+  onViewChange?: (view: MapViewState) => void;
   showMarkers?: boolean;
   onToggleShowMarkers?: () => void;
   markerSize?: number;
@@ -82,14 +83,14 @@ const LEIDEN_BOUNDS = {
 };
 
 const DEFAULT_CENTER: [number, number] = [52.15742, 4.49250];
-const DEFAULT_ZOOM = 18.0;
+const DEFAULT_ZOOM = 18.25;
 
 // High-speed, high-zoom, reliable tile layers with NO API KEY and NO watermarks
 type TileMode = 'google-streets' | 'osm' | 'google-hybrid';
 
 const TILE_CONFIGS: Record<TileMode, { name: string; url: string; subdomains?: string[]; attribution: string; maxNativeZoom: number; maxZoom: number }> = {
   'google-streets': {
-    name: 'Google Straten',
+    name: 'Straten',
     // Clean Google Maps street tiles: clear canals, clean roads, high zoom clarity, NO API KEY REQUIRED
     url: 'https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
     subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
@@ -98,7 +99,7 @@ const TILE_CONFIGS: Record<TileMode, { name: string; url: string; subdomains?: s
     maxZoom: 22,
   },
   'osm': {
-    name: 'OpenStreetMap',
+    name: 'OSM',
     url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
     attribution: '&copy; OpenStreetMap contributors',
     maxNativeZoom: 19,
@@ -122,6 +123,7 @@ export const OpenStreetMapView: React.FC<OpenStreetMapViewProps> = ({
   onSelectMarker,
   onMarkerDrag,
   onAnchorDrag,
+  onViewChange,
   showMarkers = true,
   markerSize = 0.75,
 }) => {
@@ -133,6 +135,7 @@ export const OpenStreetMapView: React.FC<OpenStreetMapViewProps> = ({
   const markerLayersRef = useRef<Map<string, L.Marker>>(new Map());
   const anchorLayersRef = useRef<Map<string, L.Marker>>(new Map());
   const [mapReady, setMapReady] = useState(false);
+  const [currentZoom, setCurrentZoom] = useState<number>(DEFAULT_ZOOM);
 
   // Map view mode: Google street tiles are crisp, reliable, and free of noisy watermarks
   const [mapMode, setMapMode] = useState<TileMode>('google-streets');
@@ -141,20 +144,58 @@ export const OpenStreetMapView: React.FC<OpenStreetMapViewProps> = ({
   const [maskOpacity, setMaskOpacity] = useState<number>(1.0);
   const [showBorderGlow, setShowBorderGlow] = useState<boolean>(true);
 
-  // Initialize Leaflet Map with spacious square view
+  // Helper to emit view changes
+  const notifyViewChange = useCallback((map: L.Map) => {
+    if (!onViewChange) return;
+    const center = map.getCenter();
+    const zoom = Number(map.getZoom().toFixed(2));
+    const bounds = map.getBounds();
+    setCurrentZoom(zoom);
+    onViewChange({
+      center: {
+        lat: Number(center.lat.toFixed(6)),
+        lng: Number(center.lng.toFixed(6)),
+      },
+      zoom,
+      bounds: {
+        north: Number(bounds.getNorth().toFixed(6)),
+        south: Number(bounds.getSouth().toFixed(6)),
+        east: Number(bounds.getEast().toFixed(6)),
+        west: Number(bounds.getWest().toFixed(6)),
+      }
+    });
+  }, [onViewChange]);
+
+  // Center strictly back to the Market Square (Mobile & Desktop optimized)
+  const handleResetToMarket = useCallback(() => {
+    const map = mapInstanceRef.current;
+    if (!map) return;
+    const isMobile = window.innerWidth < 640;
+    const bounds = L.latLngBounds(MARKET_FOCUS_SQUARE);
+    map.fitBounds(bounds, {
+      padding: isMobile ? [10, 10] : [25, 25],
+      maxZoom: isMobile ? 18.25 : 18.75,
+      animate: true,
+      duration: 0.5,
+    });
+  }, []);
+
+  // Initialize Leaflet Map with mobile-first spacious square view
   useEffect(() => {
     if (!mapContainerRef.current || mapInstanceRef.current) return;
 
+    const isMobile = window.innerWidth < 640;
+
     const map = L.map(mapContainerRef.current, {
       center: DEFAULT_CENTER,
-      zoom: DEFAULT_ZOOM,
-      minZoom: 16,
+      zoom: isMobile ? 18.0 : DEFAULT_ZOOM,
+      minZoom: 15,
       maxZoom: 22,
       maxBounds: LEIDEN_MARKET_MAX_BOUNDS,
       maxBoundsViscosity: 0.8,
       zoomControl: false,
-      zoomSnap: 0.25,
-      zoomDelta: 0.5,
+      zoomSnap: 0.1,
+      zoomDelta: 0.25,
       dragging: true,
       touchZoom: true,
       doubleClickZoom: false,
@@ -173,27 +214,51 @@ export const OpenStreetMapView: React.FC<OpenStreetMapViewProps> = ({
 
     tileLayerRef.current = tileLayer;
 
-    // Fit view comfortably around the square market area with clean padding
+    // Fit view comfortably around the square market area with mobile-friendly padding
     const marketBounds = L.latLngBounds(MARKET_FOCUS_SQUARE);
     map.fitBounds(marketBounds, {
-      padding: [25, 25],
-      maxZoom: 18.5,
+      padding: isMobile ? [10, 10] : [25, 25],
+      maxZoom: isMobile ? 18.25 : 18.75,
       animate: false,
     });
 
     mapInstanceRef.current = map;
     setMapReady(true);
 
+    // View state listeners
+    const handleMoveOrZoom = () => {
+      notifyViewChange(map);
+    };
+
+    map.on('moveend', handleMoveOrZoom);
+    map.on('zoomend', handleMoveOrZoom);
+
+    // Initial notify
     setTimeout(() => {
       map.invalidateSize();
-    }, 100);
+      notifyViewChange(map);
+    }, 150);
+
+    // Responsive resize observer
+    const resizeObserver = new ResizeObserver(() => {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.invalidateSize();
+      }
+    });
+
+    if (mapContainerRef.current) {
+      resizeObserver.observe(mapContainerRef.current);
+    }
 
     return () => {
+      resizeObserver.disconnect();
+      map.off('moveend', handleMoveOrZoom);
+      map.off('zoomend', handleMoveOrZoom);
       map.remove();
       mapInstanceRef.current = null;
       setMapReady(false);
     };
-  }, []);
+  }, [notifyViewChange]);
 
   // Handle layer switching
   useEffect(() => {
@@ -284,16 +349,16 @@ export const OpenStreetMapView: React.FC<OpenStreetMapViewProps> = ({
       const customHtml = `
         <div class="anchor-pin-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; transform: translate(-50%, -100%); cursor: grab; pointer-events: auto; user-select: none;">
           <!-- Clean Text Anchor Badge -->
-          <div style="background: rgba(15, 23, 42, 0.95); border: 2px solid ${anchor.border}; border-radius: 6px; padding: 3px 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.6), 0 0 8px ${anchor.color}; display: flex; align-items: center; justify-content: center; text-align: center; white-space: nowrap;">
-            <span style="font-weight: 800; font-size: 11px; color: #ffffff; letter-spacing: 0.03em; text-transform: uppercase;">${anchor.name}</span>
+          <div style="background: rgba(15, 23, 42, 0.95); border: 2px solid ${anchor.border}; border-radius: 6px; padding: 2px 7px; box-shadow: 0 4px 12px rgba(0,0,0,0.6), 0 0 8px ${anchor.color}; display: flex; align-items: center; justify-content: center; text-align: center; white-space: nowrap;">
+            <span style="font-weight: 800; font-size: 10.5px; color: #ffffff; letter-spacing: 0.03em; text-transform: uppercase;">${anchor.name}</span>
           </div>
 
           <!-- Anchor Teardrop Pin Indicator -->
-          <div style="position: relative; width: 24px; height: 24px; margin-top: -1px; display: flex; align-items: center; justify-content: center;">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="${anchor.color}" stroke="#ffffff" stroke-width="1.5" style="filter: drop-shadow(0 2px 5px rgba(0,0,0,0.6));">
+          <div style="position: relative; width: 22px; height: 22px; margin-top: -1px; display: flex; align-items: center; justify-content: center;">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="${anchor.color}" stroke="#ffffff" stroke-width="1.5" style="filter: drop-shadow(0 2px 5px rgba(0,0,0,0.6));">
               <path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 8 16 8 16s8-10.75 8-16c0-4.42-3.58-8-8-8zm0 11c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z" />
             </svg>
-            <div style="position: absolute; top: 6px; width: 6px; height: 6px; background: #ffffff; border-radius: 9999px;"></div>
+            <div style="position: absolute; top: 5.5px; width: 5.5px; height: 5.5px; background: #ffffff; border-radius: 9999px;"></div>
           </div>
         </div>
       `;
@@ -321,7 +386,7 @@ export const OpenStreetMapView: React.FC<OpenStreetMapViewProps> = ({
 
         leafletAnchor.bindTooltip(
           `<b>${anchor.name}</b>`,
-          { direction: 'top', offset: [0, -30], opacity: 0.95 }
+          { direction: 'top', offset: [0, -28], opacity: 0.95 }
         );
 
         leafletAnchor.on('dragend', (e) => {
@@ -381,8 +446,8 @@ export const OpenStreetMapView: React.FC<OpenStreetMapViewProps> = ({
           : 'background: #059669; color: #ffffff; border: 1.5px solid #ffffff;' ;
       }
 
-      // Badge size
-      const badgeSize = isStall ? Math.max(18, Math.round(24 * markerSize)) : Math.round(22 * markerSize);
+      // Badge size optimized for mobile touch targets
+      const badgeSize = isStall ? Math.max(20, Math.round(24 * markerSize)) : Math.round(22 * markerSize);
       const fontPx = isStall ? '10px' : '9.5px';
 
       // Pure text badges - NO coordinates, NO emojis
@@ -451,19 +516,6 @@ export const OpenStreetMapView: React.FC<OpenStreetMapViewProps> = ({
     });
   }, [markers, selectedMarker, showMarkers, markerSize, mapReady, onMarkerDrag, onSelectMarker]);
 
-  // Center strictly back to the Market Square
-  const handleResetToMarket = () => {
-    const map = mapInstanceRef.current;
-    if (!map) return;
-    const bounds = L.latLngBounds(MARKET_FOCUS_SQUARE);
-    map.fitBounds(bounds, {
-      padding: [25, 25],
-      maxZoom: 18.5,
-      animate: true,
-      duration: 0.6,
-    });
-  };
-
   return (
     <div className="relative w-full h-full bg-black overflow-hidden select-none">
       {/* Leaflet Map */}
@@ -473,14 +525,17 @@ export const OpenStreetMapView: React.FC<OpenStreetMapViewProps> = ({
         className="w-full h-full z-0 cursor-default bg-black"
       />
 
-      {/* Floating Toolbar with Street view modes, square mask toggle, and reset */}
+      {/* Floating Toolbar with Mobile-first responsive layout */}
       <div 
         id="market-focus-toolbar"
-        className="absolute top-3 left-3 z-30 flex flex-wrap items-center gap-1.5 p-1.5 rounded-xl bg-slate-900/95 backdrop-blur-md border border-slate-700 shadow-xl text-xs font-semibold text-slate-200"
+        className="absolute top-2.5 left-2.5 right-2.5 sm:right-auto sm:max-w-none z-30 flex flex-wrap items-center justify-between sm:justify-start gap-1.5 p-1.5 rounded-xl bg-slate-900/95 backdrop-blur-md border border-slate-700 shadow-xl text-xs font-semibold text-slate-200"
       >
         <div className="flex items-center gap-1.5 px-2 py-1 bg-amber-500/10 text-amber-300 rounded-lg border border-amber-500/20 font-bold">
           <Focus className="w-3.5 h-3.5 text-amber-400" />
           <span>Leidse Markt</span>
+          <span className="text-[10px] font-mono text-amber-400/80 bg-amber-400/10 px-1 py-0.2 rounded">
+            z{currentZoom.toFixed(1)}
+          </span>
         </div>
 
         {/* Map View Mode Selector */}
@@ -493,7 +548,7 @@ export const OpenStreetMapView: React.FC<OpenStreetMapViewProps> = ({
                 ? 'bg-amber-400 text-slate-950 shadow-sm'
                 : 'text-slate-300 hover:text-white'
             }`}
-            title="Google Maps stratenkaart (heldere water- en straatlijnen)"
+            title="Google Maps stratenkaart"
           >
             <MapIcon className="w-3 h-3" />
             <span>Straten</span>
@@ -537,10 +592,11 @@ export const OpenStreetMapView: React.FC<OpenStreetMapViewProps> = ({
               ? 'bg-slate-800 text-amber-300 border border-slate-700' 
               : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
           }`}
-          title={maskOpacity > 0 ? "Buiten het vierkant is zwart gemaskeerd (klik om uit te schakelen)" : "Buitenregio tonen (klik om zwart te maskeren)"}
+          title={maskOpacity > 0 ? "Buiten het vierkant is zwart gemaskeerd" : "Buitenregio tonen"}
         >
           {maskOpacity > 0 ? <EyeOff className="w-3.5 h-3.5 text-amber-400" /> : <Eye className="w-3.5 h-3.5" />}
-          <span>{maskOpacity > 0 ? 'Zwart masker: Aan' : 'Zwart masker: Uit'}</span>
+          <span className="hidden sm:inline">{maskOpacity > 0 ? 'Zwart masker: Aan' : 'Zwart masker: Uit'}</span>
+          <span className="sm:hidden">{maskOpacity > 0 ? 'Masker' : 'Masker uit'}</span>
         </button>
 
         {/* Re-center strictly to Market Area */}
@@ -550,7 +606,8 @@ export const OpenStreetMapView: React.FC<OpenStreetMapViewProps> = ({
           title="Hercentreer op de markt"
         >
           <Maximize2 className="w-3.5 h-3.5 text-sky-400" />
-          <span>Centreer markt</span>
+          <span className="hidden sm:inline">Centreer markt</span>
+          <span className="sm:hidden">Centreer</span>
         </button>
       </div>
 
